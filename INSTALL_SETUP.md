@@ -88,15 +88,17 @@ git push origin main
 
 ## 🎯 使用者安裝方式
 
-發布後，使用者可以使用以下命令安裝：
+使用者可以使用以下命令安裝最新開發版本：
 
 ```bash
-# 從最新 release 安裝
-curl -fsSL https://github.com/ksin751119/claude-code-spec-workflow/releases/latest/download/install.sh | bash
-
-# 或從 main branch 安裝 (如果你不想使用 release)
-curl -fsSL https://raw.githubusercontent.com/ksin751119/claude-code-spec-workflow/main/install.sh | bash
+# 從 develop branch 安裝最新版本 (推薦)
+curl -fsSL https://raw.githubusercontent.com/ksin751119/claude-code-spec-workflow/develop/install.sh | bash
 ```
+
+**策略說明**：
+- ✅ **Always Latest**: 使用者總是獲得最新的開發版本
+- 🚀 **即時更新**: 開發完成後立即可用，無需等待 release
+- 🔧 **持續整合**: 支援敏捷開發流程
 
 ## 📋 安裝腳本功能
 

@@ -90,12 +90,12 @@ cd "$TEMP_DIR"
 echo "Downloading from GitHub..."
 
 if command -v curl &> /dev/null; then
-    if ! curl -L "https://github.com/ksin751119/claude-code-spec-workflow/archive/main.zip" -o main.zip; then
+    if ! curl -L "https://github.com/ksin751119/claude-code-spec-workflow/archive/develop.zip" -o develop.zip; then
         echo -e "${RED}❌ Failed to download from GitHub${NC}"
         exit 1
     fi
 elif command -v wget &> /dev/null; then
-    if ! wget "https://github.com/ksin751119/claude-code-spec-workflow/archive/main.zip" -O main.zip; then
+    if ! wget "https://github.com/ksin751119/claude-code-spec-workflow/archive/develop.zip" -O develop.zip; then
         echo -e "${RED}❌ Failed to download from GitHub${NC}"
         exit 1
     fi
@@ -107,12 +107,12 @@ fi
 
 # 解壓縮
 echo "Extracting files..."
-if ! unzip -q main.zip; then
+if ! unzip -q develop.zip; then
     echo -e "${RED}❌ Failed to extract downloaded file${NC}"
     exit 1
 fi
 
-cd claude-code-spec-workflow-main
+cd claude-code-spec-workflow-develop
 
 # 安裝依賴
 echo ""
