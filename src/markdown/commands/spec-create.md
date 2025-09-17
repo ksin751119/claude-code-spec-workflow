@@ -224,29 +224,58 @@ claude-code-spec-workflow get-content "/path/to/project/.claude/templates/tasks-
 
    **Note**: This loads the requirements.md and design.md you created in previous phases.
 
-2. **Generate Atomic Task List**
-   - Break design into atomic, executable coding tasks following these criteria:
+2. **Load TDD Guidelines**
+   - Load Test-Driven Development methodology for task design:
+
+   ```bash
+   # Load TDD guidelines for proper task structure
+   # Windows: claude-code-spec-workflow get-content "C:\path\to\project\.claude\docs\tdd.md"
+   # macOS/Linux: claude-code-spec-workflow get-content "/path/to/project/.claude/docs/tdd.md"
+   ```
+
+   **Apply TDD Cycle**: Each task must follow Red → Green → Refactor approach
+
+3. **Generate Atomic TDD-Based Task List**
+   - Break design into atomic, test-first coding tasks following these criteria:
 
    **Atomic Task Requirements**:
-   - **File Scope**: Each task touches 1-3 related files maximum
-   - **Time Boxing**: Completable in 15-30 minutes by an experienced developer
+   - **Test First**: Each task starts with writing a failing test
+   - **File Scope**: Each task touches 1-3 related files maximum (test + implementation)
+   - **Time Boxing**: Completable in 15-30 minutes following TDD cycle
    - **Single Purpose**: One testable outcome per task
-   - **Specific Files**: Must specify exact files to create/modify
+   - **Specific Files**: Must specify exact test and implementation files
    - **Agent-Friendly**: Clear input/output with minimal context switching
+
+   **TDD Task Structure**:
+   Each task should specify:
+   1. **Test Phase (Red)**: What test to write first
+   2. **Implementation Phase (Green)**: Minimum code to pass test
+   3. **Refactor Phase**: Structural improvements to consider
+
+   **Test Case Design Guidelines**:
+   - **Coverage Focus**: Ensure main functionality tested, avoid excessive tests
+   - **Combine When Possible**: Merge related tests to reduce redundancy
+   - **Specific Expectations**: Verify exact values, not just presence
+     - BAD: `expect(result).toBeDefined()`
+     - GOOD: `expect(result).toEqual({ status: 'success', userId: 123 })`
+   - **No Duplicate Tests**: If functionality is already tested, don't repeat
+   - **Complete Testing**: No skipping or workarounds that miss coverage
+   - **Mock Data**: Use mocks to simplify single-function tests
 
    **Task Granularity Examples**:
    - BAD: "Implement authentication system"
-   - GOOD: "Create User model in models/user.py with email/password fields"
+   - GOOD: "Write test for User.authenticate() method in tests/user.test.py, then implement password verification in models/user.py"
    - BAD: "Add user management features"
-   - GOOD: "Add password hashing utility in utils/auth.py using bcrypt"
+   - GOOD: "Write test for password hashing in tests/auth.test.py, then add bcrypt hashing utility in utils/auth.py"
 
    **Implementation Guidelines**:
    - **Follow structure.md**: Ensure tasks respect project file organization
+   - **Separate Changes**: Keep structural changes (refactoring) separate from behavioral changes
    - **Prioritize extending/adapting existing code** over building from scratch
    - Use checkbox format with numbered hierarchy
    - Each task should reference specific requirements AND existing code to leverage
    - Focus ONLY on coding tasks (no deployment, user testing, etc.)
-   - Break large concepts into file-level operations
+   - Break large concepts into testable units
 
 ### Task Template Usage
 - **Read and follow**: Load the tasks template using:
